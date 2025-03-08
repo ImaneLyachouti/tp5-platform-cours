@@ -4,7 +4,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../Model/authModel");
 const verifyToken = require("../Middleware/verifyToken");
-
 //  1-Inscription d'un utilisateur
 router.post("/register", async (req, res) => {
     const { id, name, email, password } = req.body;
@@ -20,7 +19,6 @@ try {
         res.status(500).json({ error: err.message });
     }
 });
-
 // 2-Connexion
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
@@ -31,7 +29,6 @@ router.post("/login", async (req, res) => {
    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
     res.json({ token });
 });
-
 // 3-Récupérer les informations
 router.get("/profile", verifyToken, async (req, res) => {
     try {
